@@ -6,10 +6,10 @@ $config = '';
 | SQL file
 |--------------------------------------------------------------------------
 |
-| Path and file name of the SQL backup/dump file. Typically this will be your base URL,
-| WITH a trailing slash:
+| Path and file name of the SQL backup/dump file. Typically this will be the
+| file system path:
 |
-|	http://example.com/databasefile.sql
+|	For example: D://wamp/www/directory/filename.sql
 |
 */
 $config['sql_file']	= "";
