@@ -32,7 +32,13 @@
 	$database_name = $config['database_name'];		// DBName
 	
 	$description = '';
-
+	$diagnostic_info = '';
+	$blnDiagnostics = FALSE;
+	
+	$diagmode = (isset($_REQUEST['dmode'])) ? $_REQUEST['dmode'] : 0;
+	
+	if($diagmode == 1)
+		$blnDiagnostics = TRUE;
 
 	/* ************************************************
 	*	Connect to the mysql database
@@ -59,6 +65,9 @@
 				$query .= $sql_line;
 				if (substr(rtrim($query), -1) == ';')
 				{
+					if($blnDiagnostics === false)
+						$diagnostic_info .= $query.'\n';
+
 					//echo $query;        //For debugging purposes
 					$result = mysql_query($query)or die($header.$body.mysql_error().'. The import has been terminated and did not complete the process.'.$footer);
 					$query = "";
@@ -66,6 +75,10 @@
 			}
 		 }
 		$description = "File ".$sqlfile." successfully imported into the ".$database_name." database.";
+		
+		if($blnDiagnostics === false)
+			$description .= '<h3>'.$diagnostic_info.'</h3>';
+			
 		mysql_close();
 	}
 	
