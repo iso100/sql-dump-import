@@ -23,6 +23,7 @@
 	*	Include the configuration file
 	* *******************************************/
 	require_once 'sqlconfig.php';
+	//require_once 'sqlimportfunc.php';
 
 	//Initialize variables
 	$sqlfile = $config['sql_file'];					// SQL File
@@ -31,10 +32,11 @@
 	$db_password = $config['database_password'];	// User Password
 	$database_name = $config['database_name'];		// DBName
 	
+	$sqldelimiter = ';';
 	$description = '';
 	$diagnostic_info = '';
 	$blnDiagnostics = FALSE;
-	
+
 	$diagmode = (isset($_REQUEST['dmode'])) ? $_REQUEST['dmode'] : 0;
 	
 	if($diagmode == 1)
@@ -43,7 +45,7 @@
 	/* ************************************************
 	*	Connect to the mysql database
 	* ************************************************/
-	$link = mysql_connect($hostname, $db_user, $db_password);
+	$link = mysql_connect(mysql_escape_string($hostname), mysql_escape_string($db_user), mysql_escape_string($db_password));
 	
 	if (!$link) 
 	{
@@ -51,35 +53,50 @@
 	}
 	else
 	{
-		$blnError = FALSE;
 		// Select the mySQL DB
-		mysql_select_db($database_name, $link) or die("Wrong MySQL Database");
+		mysql_select_db(mysql_escape_string($database_name), $link) or die("Wrong MySQL Database");
 	
-		$file_content = file($sqlfile);
-		$query = "";
-	
-		foreach($file_content as $sql_line)
-		{
-			if(trim($sql_line) != "" && strpos($sql_line, "--") === false)
-			{
-				$query .= $sql_line;
-				if (substr(rtrim($query), -1) == ';')
-				{
-					if($blnDiagnostics === false)
-						$diagnostic_info .= $query.'\n';
+		$filename = $sqlfile;
+		$sqlfile = fopen($sqlfile, 'r');
 
-					//echo $query;        //For debugging purposes
-					$result = mysql_query($query)or die($header.$body.mysql_error().'. The import has been terminated and did not complete the process.'.$footer);
-					$query = "";
+		if (is_resource($sqlfile) === true) 
+		{
+			$query = array();
+		
+			while (feof($sqlfile) === false) 
+			{
+				$query[] = fgets($sqlfile);
+		
+				if (preg_match('~' . preg_quote($sqldelimiter, '~') . '\s*$~iS', end($query)) === 1) 
+				{
+					$query = trim(implode('', $query));
+
+					if($blnDiagnostics === false)
+						$diagnostic_info .= $query;
+		
+					$result = mysql_query($query)or die($header.$body.mysql_error().'. The import has been terminated and did not complete the process.'.$query.$footer);
+
+					while (ob_get_level() > 0) 
+					{
+						ob_end_flush();
+					}
+					flush();
+				}
+				if (is_string($query) === true) 
+				{
+					$query = array();
 				}
 			}
-		 }
-		$description = "File ".$sqlfile." successfully imported into the ".$database_name." database.";
+	
+			fclose($sqlfile);
+		}
+		$description = "File ".$filename." successfully imported into the ".$database_name." database.";
 		
 		if($blnDiagnostics === false)
-			$description .= '<h3>'.$diagnostic_info.'</h3>';
+			$description .= '<h3>Diagnostics</h3><div>'.$diagnostic_info.'</div>';
 			
 		mysql_close();
+		
 	}
 	
 	echo $header.$body.$description.$footer;
