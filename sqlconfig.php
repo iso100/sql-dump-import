@@ -12,9 +12,7 @@ $config = '';
 |	D://wamp/www/filedirectory/filename.sql
 |
 */
-$config['sql_file']	= "D://wamp/www/devee2/scripts/php/pbdev20120117.sql";
-//$config['sql_file'] = "D://wamp/www/devee2/scripts/php/local_vollyedu.sql";
-//$config['sql_file']	= "D://wamp/www/devee2/scripts/php/dummy.sql";
+$config['sql_file']	= "";
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +22,7 @@ $config['sql_file']	= "D://wamp/www/devee2/scripts/php/pbdev20120117.sql";
 | Typically this will be the hostname for the database server: ie localhost.
 |
 */
-$config['host_name'] = "localhost";
+$config['host_name'] = "";
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +32,7 @@ $config['host_name'] = "localhost";
 | Name of the target database.
 |
 */
-$config['database_name'] = "dummy";
+$config['database_name'] = "";
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +42,7 @@ $config['database_name'] = "dummy";
 | User name used to connect to the database server.
 |
 */
-$config['database_user'] = "root";
+$config['database_user'] = "";
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +52,7 @@ $config['database_user'] = "root";
 | Password used to connect to the database server.
 |
 */
-$config['database_password'] = "z9dragon";
+$config['database_password'] = "";
 
 
 ?>
