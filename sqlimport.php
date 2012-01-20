@@ -1,5 +1,4 @@
 <?php
-
 	/* ********************************************
 	*  HTML page setup
 	*  *******************************************/
@@ -19,9 +18,11 @@
 		
 	$footer = '</div></body></html>';
 
+	define('SQLIMPORT',1);
 	/* *******************************************
 	*	Include the configuration file
 	* *******************************************/
+	
 	require_once 'sqlconfig.php';
 	//require_once 'sqlimportfunc.php';
 
