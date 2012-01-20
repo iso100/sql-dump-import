@@ -37,7 +37,7 @@
 	$diagnostic_info = '';
 	$blnDiagnostics = FALSE;
 
-	$diagmode = (isset($_REQUEST['dmode'])) ? $_REQUEST['dmode'] : 0;
+	$diagmode = (isset($_REQUEST['diagmode'])) ? $_REQUEST['diagmode'] : 0;
 	
 	if($diagmode == 1)
 		$blnDiagnostics = TRUE;
@@ -71,9 +71,9 @@
 				{
 					$query = trim(implode('', $query));
 
-					if($blnDiagnostics === false)
+					if($blnDiagnostics === true)
 						$diagnostic_info .= $query;
-		
+
 					$result = mysql_query($query)or die($header.$body.mysql_error().'. The import has been terminated and did not complete the process.'.$query.$footer);
 
 					while (ob_get_level() > 0) 
@@ -92,7 +92,7 @@
 		}
 		$description = "File ".$filename." successfully imported into the ".$database_name." database.";
 		
-		if($blnDiagnostics === false)
+		if($blnDiagnostics === true)
 			$description .= '<h3>Diagnostics</h3><div>'.$diagnostic_info.'</div>';
 			
 		mysql_close();
