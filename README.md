@@ -1,5 +1,6 @@
 # SQL DUMP IMPORT #
 
+<<<<<<< HEAD
 SQL Dump Import was created to allow easy importing of SQL dump files onto web servers. Once configured (see below for details) hitting the SQLImport.php file will read from the specified SQL dump file and execute all commands found within.
 
 ### SQL Import Configuration ###
@@ -21,3 +22,6 @@ The sqlconfig.php file contains the information needed to specify the sql import
 **Debug Parameter**
 :diagmode=1  Example - http://www.example.com/test/sqlimport.php?diagmode=1
  
+=======
+SQL Dump Import was created to allow easy importing of SQL dump files onto web servers. Once configured (see below for details) hitting the SQLImport.php file will read from the specified SQL dump file and execute all commands found within.
+>>>>>>> BeanStalk-Import/master
