@@ -10,11 +10,11 @@ The sqlconfig.php file contains the information needed to specify the sql import
 
 ### $config[] Parameters ###
 
-:$config['sql_file'] = "D://wamp/www/filedirectory/sqlmysqlfile.sql"; (Enter the full system path and file name of the MySQL export file. A website url could be used but is not recommended for security purposes.)
-:$config['host_name'] = "www.example.com"; (Enter the name of the host server that the database resides on.)
-:$config['database_name'] = "mysql2"; (Enter the name of the MySQL database that will receive the imported data.)
-:$config['database_user'] = "sqluser"; (Enter the account name used for connection to the database listed in the config[database_name] field.)
-:$config['database_password'] = "sqluserpassword"; (Enter the password for the account listed in the config[database_user] field.)
+* $config['sql_file'] = "D://wamp/www/filedirectory/sqlmysqlfile.sql"; (Enter the full system path and file name of the MySQL export file. A website url could be used but is not recommended for security purposes.)
+* $config['host_name'] = "www.example.com"; (Enter the name of the host server that the database resides on.)
+* $config['database_name'] = "mysql2"; (Enter the name of the MySQL database that will receive the imported data.)
+* $config['database_user'] = "sqluser"; (Enter the account name used for connection to the database listed in the config[database_name] field.)
+* $config['database_password'] = "sqluserpassword"; (Enter the password for the account listed in the config[database_user] field.)
 
 SQL Import Script
 -----------------
